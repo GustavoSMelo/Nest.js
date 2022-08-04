@@ -34,7 +34,7 @@ export class CoursesController {
         return this.coursesService.delete(+id);
     }
 
-    @Put()
+    @Put(':id')
     public update(@Param('id') id: number, @Body() body: ICourses) {
         return this.coursesService.update(+id, body);
     }
