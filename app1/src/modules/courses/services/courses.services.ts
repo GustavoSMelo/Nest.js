@@ -1,7 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ICourses } from '../dto/courses.dto';
+import { ICourses } from '../types/courses.interface';
 import { Courses } from '../entities/courses.entity';
 
 @Injectable()
@@ -11,30 +15,54 @@ export class CoursesService {
         private readonly coursesRepository: Repository<Courses>,
     ) {}
 
-    public save(courses: ICourses) {
-        return this.coursesRepository.save(courses);
+    public async save(courses: ICourses) {
+        try {
+            return await this.coursesRepository.save(courses);
+        } catch (error) {
+            throw new BadRequestException(
+                `ERROR [ Service: Courses | Method: save ] -> ${error}`,
+            );
+        }
     }
 
     public find() {
         return this.coursesRepository.find();
     }
 
-    public findOne(id: number) {
-        return this.coursesRepository.findOne({ where: { id } });
+    public async findOne(id: number) {
+        try {
+            return await this.coursesRepository.findOne({ where: { id } });
+        } catch (error) {
+            throw new NotFoundException(
+                `ERROR [ Service: Courses | Method: findOne ] -> ${error}`,
+            );
+        }
     }
 
-    public delete(id: number) {
-        return this.coursesRepository.delete(id);
+    public async delete(id: number) {
+        try {
+            return await this.coursesRepository.delete(id);
+        } catch (error) {
+            throw new NotFoundException(
+                `ERROR [ Service: Courses | Method: delete ] -> ${error}`,
+            );
+        }
     }
 
     public async update(id: number, course: ICourses) {
-        const registredCourse = await this.coursesRepository.findOne({
-            where: { id },
-        });
+        try {
+            const registredCourse = await this.coursesRepository.findOne({
+                where: { id },
+            });
 
-        registredCourse.name = course.name;
-        registredCourse.description = course.description;
+            registredCourse.name = course.name;
+            registredCourse.description = course.description;
 
-        this.coursesRepository.update(id, registredCourse);
+            this.coursesRepository.update(id, registredCourse);
+        } catch (error) {
+            throw new NotFoundException(
+                `ERROR [ Service: Courses | Method: update ] -> ${error}`,
+            );
+        }
     }
 }
