@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CoursesModule } from './modules/courses/courses.module';
+import { TagsModule } from './modules/tags/tags.module';
 
 @Module({
     imports: [
@@ -16,6 +17,7 @@ import { CoursesModule } from './modules/courses/courses.module';
             synchronize: true,
             entities: ['dist/**/*.entity.js'],
         }),
+        TagsModule,
         CoursesModule,
     ],
 })
