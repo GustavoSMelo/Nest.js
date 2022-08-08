@@ -7,7 +7,7 @@ import {
     Post,
     Put,
 } from '@nestjs/common';
-import { CoursesService } from '../services/courses.services';
+import { CoursesService } from '../services/courses.service';
 import { ICourses } from '../types/courses.interface';
 
 @Controller('courses')
