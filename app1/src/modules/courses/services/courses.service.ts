@@ -73,7 +73,7 @@ export class CoursesService {
             registredCourse.name = course.name;
             registredCourse.description = course.description;
 
-            this.coursesRepository.update(id, registredCourse);
+            return this.coursesRepository.update(id, registredCourse);
         } catch (error) {
             throw new NotFoundException(
                 `ERROR [ Service: Courses | Method: update ] -> ${error}`,
