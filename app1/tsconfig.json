@@ -16,6 +16,19 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  }
+    "noFallthroughCasesInSwitch": false,
+    "plugins": [
+        {
+          "transform": "ts-auto-mock/transformer",
+          "cacheBetweenTests": false
+        }
+    ]
+  },
+  "include": ["src", "test"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "dist",
+    ".docker"
+  ]
 }
